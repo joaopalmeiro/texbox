@@ -1,0 +1,23 @@
+# More info: https://editorconfig.org/
+# List of properties: https://github.com/editorconfig/editorconfig/wiki/EditorConfig-Properties
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{py,rst,ini}]
+indent_style = space
+indent_size = 4
+
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+
+[LICENSE]
+insert_final_newline = false
+
+[Makefile]
+indent_style = tab
