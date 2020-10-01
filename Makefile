@@ -1,4 +1,4 @@
-.PHONY: init shell remove manifest
+.PHONY: init shell rm manifest
 
 init:
 	export PIPENV_VENV_IN_PROJECT=1 && \
@@ -7,7 +7,7 @@ init:
 shell:
 	pipenv shell
 
-remove:
+rm:
 	pipenv --rm
 
 manifest:
