@@ -1,0 +1,7 @@
+include *.lock
+include LICENSE
+include Makefile
+include Pipfile
+include .editorconfig
+
+prune .vscode

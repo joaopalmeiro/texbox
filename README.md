@@ -13,4 +13,3 @@ A Python CLI to organize and prettify specific .tex files.
 - `pipenv install -e .`.
 - `pipenv install pyparsing`.
 - `pipenv graph`.
-- `check-manifest -v -u`.
