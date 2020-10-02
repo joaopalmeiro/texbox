@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from .parser import acronym_parser
-from .utils import jprint
+from .utils import jprint, sort_list_of_lists, split_irregular_list_of_lists
 
 
 def main():
@@ -12,7 +12,13 @@ def main():
 
     parsed_acronyms = parser.parseString(original_acronyms)
 
-    jprint(parsed_acronyms.asList())
+    # jprint(parsed_acronyms.asList())
+
+    comments, acronyms = split_irregular_list_of_lists(parsed_acronyms.asList())
+
+    acronyms = sort_list_of_lists(acronyms, 0)
+
+    jprint(acronyms)
 
 
 if __name__ == "__main__":
