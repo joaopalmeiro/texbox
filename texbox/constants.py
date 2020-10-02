@@ -1,3 +1,4 @@
 ACRONYM_MACRO = "\\newacronym"
 COMMENT_CHAR = "%"
+EMPTY_LINE = [""]
 SUPPORTED_PUNCTUATION = "-.+"

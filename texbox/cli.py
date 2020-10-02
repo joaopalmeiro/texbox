@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from .parser import acronym_parser, acronym_writer
-from .utils import jprint, natural_sort_list_of_lists, split_irregular_list_of_lists
+from .utils import natural_sort_list_of_lists, split_irregular_list_of_lists
 
 
 def main():
@@ -12,10 +12,14 @@ def main():
 
     parsed_acronyms = parser.parseString(original_acronyms, parseAll=True).asList()
 
-    comments, acronyms = split_irregular_list_of_lists(parsed_acronyms)
-    acronyms = natural_sort_list_of_lists(acronyms, 0)
+    comments, structured_acronyms = split_irregular_list_of_lists(parsed_acronyms)
+    structured_acronyms = natural_sort_list_of_lists(structured_acronyms, 0)
 
-    # print(acronym_writer(comments, acronyms))
+    output = acronym_writer(comments, structured_acronyms)
+
+    print(output)
+
+    # path.write_text(output)
 
 
 if __name__ == "__main__":

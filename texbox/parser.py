@@ -1,6 +1,6 @@
 import pyparsing as pp
 
-from .constants import ACRONYM_MACRO, COMMENT_CHAR, SUPPORTED_PUNCTUATION
+from .constants import ACRONYM_MACRO, COMMENT_CHAR, EMPTY_LINE, SUPPORTED_PUNCTUATION
 
 
 def acronym_parser():
@@ -33,5 +33,11 @@ def stringify_acronym(acronym):
 
 
 def acronym_writer(comments, acronyms):
-    output_acronyms = "\n".join([stringify_acronym(acronym) for acronym in acronyms])
-    return output_acronyms
+    output = "\n".join(
+        comments
+        + EMPTY_LINE
+        + [stringify_acronym(acronym) for acronym in acronyms]
+        + EMPTY_LINE
+    )
+
+    return output
