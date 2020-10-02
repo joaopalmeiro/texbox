@@ -18,3 +18,4 @@ A Python CLI to organize and prettify specific .tex files.
 - `pipenv install -e .`.
 - `pipenv install pyparsing`.
 - `pipenv graph`.
+- Delete tag: `git push --delete origin tagname`.
