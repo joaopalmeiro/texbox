@@ -10,6 +10,7 @@ A Python CLI to organize and prettify specific .tex files.
 ## References
 
 - [LaTeX/Glossary](https://en.wikibooks.org/wiki/LaTeX/Glossary).
+- [Publishing package distribution releases using GitHub Actions CI/CD workflows](https://packaging.python.org/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/).
 
 ## Notes
 
