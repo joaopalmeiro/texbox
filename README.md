@@ -1,5 +1,8 @@
 # texbox
 
+[![PyPI - Version](https://img.shields.io/pypi/v/texbox)](https://pypi.org/project/texbox/)
+![Publish to PyPI](https://github.com/joaopalmeiro/texbox/workflows/Publish%20to%20PyPI/badge.svg?branch=master)
+
 A Python CLI to organize and prettify specific .tex files.
 
 ## Development quickstart
