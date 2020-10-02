@@ -5,6 +5,8 @@ COMMENT_CHAR = "%"
 EMPTY_LINE = [""]
 SUPPORTED_PUNCTUATION = "-.+"
 
+ARGPARSE_DEFAULT = "(default: %(default)s)"
+
 
 class Term:
     BOLD = "\033[1m"
@@ -13,5 +15,5 @@ class Term:
 
 class Acronym(IntEnum):
     LABEL = 0
-    ABBREV = 1
+    ABBRV = 1
     FULL = 2
