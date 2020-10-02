@@ -26,3 +26,12 @@ def acronym_parser():
     )
 
     return pp.ZeroOrMore(comment | acronym)
+
+
+def stringify_acronym(acronym):
+    return "{0}{{{a[0]}}}{{{a[1]}}}{{{a[2]}}}".format(ACRONYM_MACRO, a=acronym)
+
+
+def acronym_writer(comments, acronyms):
+    output_acronyms = "\n".join([stringify_acronym(acronym) for acronym in acronyms])
+    return output_acronyms

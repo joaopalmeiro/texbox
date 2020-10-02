@@ -1,5 +1,4 @@
 import json
-from operator import itemgetter
 
 
 def jprint(obj, indent=4, ensure_ascii=False):
@@ -15,5 +14,5 @@ def split_irregular_list_of_lists(lst):
     return strs, lists
 
 
-def sort_list_of_lists(lst, *inner_idx):
-    return sorted(lst, key=itemgetter(*inner_idx))
+def natural_sort_list_of_lists(lst, inner_idx):
+    return sorted(lst, key=lambda item: item[inner_idx].casefold())
