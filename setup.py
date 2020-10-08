@@ -50,7 +50,12 @@ setup(
     license="MIT",
     keywords="cli, refactor, sort, prettify, acronyms, latex",
     install_requires=["pyparsing"],
-    entry_points={"console_scripts": ["texbox=texbox.cli:main"]},
+    entry_points={
+        "console_scripts": [
+            "texbox_acronyms=texbox.cli_acronyms:main",
+            "texbox_tables=texbox.cli_tables:main",
+        ]
+    },
     python_requires=">=3.6, <=3.8",
     project_urls={
         "Bug Reports": "https://github.com/joaopalmeiro/texbox/issues",

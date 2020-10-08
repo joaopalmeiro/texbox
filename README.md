@@ -7,8 +7,10 @@ A Python CLI to organize and prettify specific .tex files.
 
 ## Quickstart (CLI)
 
+### texbox_acronyms
+
 ```text
-usage: texbox [-h] -i PATH [-b {label,abbrv,full}] [-d]
+usage: texbox_acronyms [-h] -i PATH [-b {label,abbrv,full}] [-d]
 
 Sort acronyms from an `acronyms.tex` file.
 
@@ -38,3 +40,4 @@ optional arguments:
 - `pipenv install pyparsing`.
 - `pipenv graph`.
 - Delete tag: `git push --delete origin tagname`.
+- `python -m texbox.cli_acronyms -h`.

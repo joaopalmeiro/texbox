@@ -1,4 +1,4 @@
-.PHONY: init shell rm manifest
+.PHONY: init shell rm manifest clean-build clean
 
 init:
 	export PIPENV_VENV_IN_PROJECT=1 && \
@@ -12,3 +12,12 @@ rm:
 
 manifest:
 	pipenv run check-manifest --verbose --create --update
+
+clean-build:
+	rm -fr build/
+	rm -fr dist/
+	rm -fr .eggs/
+	find . -name '*.egg-info' -exec rm -fr {} +
+	find . -name '*.egg' -exec rm -f {} +
+
+clean: clean-build
