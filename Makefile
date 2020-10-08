@@ -1,4 +1,4 @@
-.PHONY: init shell rm manifest clean-build clean
+.PHONY: init shell rm manifest clean-build clean reinit
 
 init:
 	export PIPENV_VENV_IN_PROJECT=1 && \
@@ -21,3 +21,5 @@ clean-build:
 	find . -name '*.egg' -exec rm -f {} +
 
 clean: clean-build
+
+reinit: rm init

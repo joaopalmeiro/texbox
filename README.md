@@ -41,3 +41,4 @@ optional arguments:
 - `pipenv graph`.
 - Delete tag: `git push --delete origin tagname`.
 - `python -m texbox.cli_acronyms -h`.
+- [`pandas.DataFrame.to_latex`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_latex.html) documentation.

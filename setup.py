@@ -49,7 +49,7 @@ setup(
     ],
     license="MIT",
     keywords="cli, refactor, sort, prettify, acronyms, latex",
-    install_requires=["pyparsing"],
+    install_requires=["pyparsing", "pandas"],
     entry_points={
         "console_scripts": [
             "texbox_acronyms=texbox.cli_acronyms:main",
