@@ -32,6 +32,7 @@ optional arguments:
 
 - [LaTeX/Glossary](https://en.wikibooks.org/wiki/LaTeX/Glossary).
 - [Publishing package distribution releases using GitHub Actions CI/CD workflows](https://packaging.python.org/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/).
+- [The Comprehensive LaTeX Symbol List](https://math.uoregon.edu/wp-content/uploads/2014/12/compsymb-1qyb3zd.pdf).
 
 ## Notes
 
