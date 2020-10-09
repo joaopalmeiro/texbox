@@ -59,3 +59,26 @@ def is_multi_word_string(string):
 
 def templatify(template, value, placeholder="_PLACEHOLDER_"):
     return template.replace(placeholder, value)
+
+
+def padify(string, fill_char=" ", pad_size=1):
+    return string.center(len(string) + 2 * pad_size, fill_char)
+
+
+# Source: https://toolz.readthedocs.io/en/latest/api.html#toolz.dicttoolz.valmap
+def valmap(fn, dict_):
+    updated_dict = dict()
+    updated_dict.update(zip(dict_.keys(), map(fn, dict_.values())))
+
+    return updated_dict
+
+
+def dreplace(string, dict_):
+    for key, value in dict_.items():
+        string = string.replace(key, value)
+    return string
+
+
+def rreplace(s, old, new, occurrence=1):
+    li = s.rsplit(old, occurrence)
+    return new.join(li)

@@ -1,5 +1,5 @@
 __package_name__ = "texbox"
-__version__ = "0.1.1"
+__version__ = "0.2.0"
 __author__ = "João Palmeiro"
 __author_email__ = "jm.palmeiro@campus.fct.unl.pt"
 __description__ = "A Python CLI to organize and prettify specific .tex files."

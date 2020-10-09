@@ -9,14 +9,20 @@ from .constants import (
     BEGIN_LANDSCAPE_MACRO,
     BREAK_COLUMN_HEADING_TEMPLATE,
     CITE_MACRO,
+    CUSTOM_FOOTER_LEGEND_TEMPLATE,
     END_LANDSCAPE_MACRO,
+    END_TABULAR_MACRO,
     LINE_BREAK,
+    SPACE_MACRO,
     TABLE_LABEL_TEMPLATE,
     UNICODE_2_MATH_SYMBOL,
 )
 from .utils import (
     CustomHelpFormatter,
+    dreplace,
     is_multi_word_string,
+    padify,
+    rreplace,
     str2list,
     strs2str,
     templatify,
@@ -123,6 +129,16 @@ def parse_args():
         default=None,
     )
 
+    optional.add_argument(
+        "-fl",
+        "--footer-legend",
+        help="The path to the file with the footer legend entries.",
+        metavar="PATH",
+        type=str,
+        default=None,
+        dest="footer_path",
+    )
+
     args = parser.parse_args()
 
     return args
@@ -163,17 +179,34 @@ def main():
 
     df = df.replace(UNICODE_2_MATH_SYMBOL, regex=True)
 
+    latex_table = df.to_latex(
+        index=False,
+        escape=False,
+        label=templatify(TABLE_LABEL_TEMPLATE, input_path.stem + secrets.token_hex(2)),
+        caption=args.caption,
+    ).rstrip()
+
+    if args.footer_path is not None:
+        footer_legend_path = Path(args.footer_path)
+        footer_legend = footer_legend_path.read_text().strip()
+
+        footer_legend = dreplace(footer_legend, UNICODE_2_MATH_SYMBOL).replace(
+            "\\\\", "\\"
+        )
+
+        footer_legend = templatify(
+            CUSTOM_FOOTER_LEGEND_TEMPLATE,
+            footer_legend.replace("\n", padify(SPACE_MACRO)),
+        )
+
+        latex_table = rreplace(
+            latex_table, END_TABULAR_MACRO, strs2str(END_TABULAR_MACRO, footer_legend)
+        )
+
     output_path.write_text(
         strs2str(
             BEGIN_LANDSCAPE_MACRO if args.rotate else None,
-            df.to_latex(
-                index=False,
-                escape=False,
-                label=templatify(
-                    TABLE_LABEL_TEMPLATE, input_path.stem + secrets.token_hex(2)
-                ),
-                caption=args.caption,
-            ).strip(),
+            latex_table,
             END_LANDSCAPE_MACRO if args.rotate else None,
         )
     )
