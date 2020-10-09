@@ -9,6 +9,10 @@ ARGPARSE_DEFAULT = "(default: %(default)s)"
 
 CITE_MACRO = "\\cite"
 ABBREVIATION_TEMPLATE = "\\acrshort{_PLACEHOLDER_}"
+BREAK_COLUMN_HEADING_TEMPLATE = (
+    "\\begin{tabular}[l]{@{}l@{}}_PLACEHOLDER_\\end{tabular}"
+)
+LINE_BREAK = "\\\\"
 
 BEGIN_CENTER_MACRO = "\\begin{center}"
 END_CENTER_MACRO = "\\end{center}"

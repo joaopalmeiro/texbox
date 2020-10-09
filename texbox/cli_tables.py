@@ -7,12 +7,20 @@ from .constants import (
     ABBREVIATION_TEMPLATE,
     BEGIN_CENTER_MACRO,
     BEGIN_LANDSCAPE_MACRO,
+    BREAK_COLUMN_HEADING_TEMPLATE,
     CITE_MACRO,
     END_CENTER_MACRO,
     END_LANDSCAPE_MACRO,
+    LINE_BREAK,
     UNICODE_2_MATH_SYMBOL,
 )
-from .utils import CustomHelpFormatter, str2list, strs2str, templatify_col_names
+from .utils import (
+    CustomHelpFormatter,
+    is_multi_word_string,
+    str2list,
+    strs2str,
+    templatify_col_names,
+)
 
 
 def parse_args():
@@ -89,6 +97,13 @@ def parse_args():
         action="store_true",
     )
 
+    optional.add_argument(
+        "-b",
+        "--break-column-headings",
+        help="Break the column headings of the generated LaTeX table with more than one word.",
+        action="store_true",
+    )
+
     args = parser.parse_args()
 
     return args
@@ -110,6 +125,15 @@ def main():
     if args.acronym_cols is not None:
         df = templatify_col_names(
             df, str2list(args.acronym_cols), ABBREVIATION_TEMPLATE
+        )
+
+    if args.break_column_headings:
+        cols = [col for col in df.columns if is_multi_word_string(col)]
+        df = templatify_col_names(
+            df,
+            cols,
+            BREAK_COLUMN_HEADING_TEMPLATE,
+            pre_col_transform=lambda col: col.replace(" ", LINE_BREAK),
         )
 
     df = df.replace(UNICODE_2_MATH_SYMBOL, regex=True)

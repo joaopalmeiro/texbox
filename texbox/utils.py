@@ -40,6 +40,16 @@ def strs2str(*strings, sep="\n"):
     return sep.join(filter(None.__ne__, strings))
 
 
-def templatify_col_names(df, cols, template, pattern="_PLACEHOLDER_"):
-    mapping = {col: template.replace(pattern, col) for col in cols}
+def identity(obj):
+    return obj
+
+
+def templatify_col_names(
+    df, cols, template, pattern="_PLACEHOLDER_", pre_col_transform=identity
+):
+    mapping = {col: template.replace(pattern, pre_col_transform(col)) for col in cols}
     return df.rename(columns=mapping)
+
+
+def is_multi_word_string(string):
+    return len(string.split()) > 1
