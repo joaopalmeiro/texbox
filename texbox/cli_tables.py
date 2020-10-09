@@ -1,4 +1,5 @@
 import argparse
+import secrets
 from pathlib import Path
 
 import pandas as pd
@@ -156,7 +157,9 @@ def main():
             df.to_latex(
                 index=False,
                 escape=False,
-                label=templatify(TABLE_LABEL_TEMPLATE, input_path.stem),
+                label=templatify(
+                    TABLE_LABEL_TEMPLATE, input_path.stem + secrets.token_hex(2)
+                ),
                 caption=args.caption,
             ).strip(),
             END_LANDSCAPE_MACRO if args.rotate else None,
