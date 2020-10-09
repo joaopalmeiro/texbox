@@ -114,6 +114,15 @@ def parse_args():
         default=None,
     )
 
+    optional.add_argument(
+        "-sb",
+        "--sort-by",
+        help="The subset of columns to sort by.",
+        metavar="COLS",
+        type=str,
+        default=None,
+    )
+
     args = parser.parse_args()
 
     return args
@@ -131,6 +140,9 @@ def main():
     else:
         cols = str2list(args.cols) + [args.cite_key_col]
         df = pd.read_csv(input_path, usecols=cols)
+
+    if args.sort_by is not None:
+        df = df.sort_values(by=str2list(args.sort_by))
 
     df = df.rename(columns={args.cite_key_col: args.title_col})
     df[args.title_col] = CITE_MACRO + "{" + df[args.title_col] + "}"
