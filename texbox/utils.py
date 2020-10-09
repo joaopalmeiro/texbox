@@ -30,3 +30,11 @@ class CustomHelpFormatter(HelpFormatter):
             args_string = self._format_args(action, default)
 
             return ", ".join(action.option_strings) + " " + args_string
+
+
+def str2list(string, sep=","):
+    return string.split(sep)
+
+
+def strs2str(*strings, sep="\n"):
+    return sep.join(strings)

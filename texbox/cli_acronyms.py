@@ -46,6 +46,7 @@ def parse_args():
         help=f"Macro argument name to sort by. {ARGPARSE_DEFAULT}",
         choices=["label", "abbrv", "full"],
         default="label",
+        type=str,
     )
 
     optional.add_argument(

@@ -127,4 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-acronyms.tex
+
+# Development
+*.tex
+*.csv
