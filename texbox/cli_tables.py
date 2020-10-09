@@ -3,8 +3,16 @@ from pathlib import Path
 
 import pandas as pd
 
-from .constants import BEGIN_CENTER_MACRO, CITE_MACRO, END_CENTER_MACRO
-from .utils import CustomHelpFormatter, str2list, strs2str
+from .constants import (
+    ABBREVIATION_TEMPLATE,
+    BEGIN_CENTER_MACRO,
+    BEGIN_LANDSCAPE_MACRO,
+    CITE_MACRO,
+    END_CENTER_MACRO,
+    END_LANDSCAPE_MACRO,
+    UNICODE_2_MATH_SYMBOL,
+)
+from .utils import CustomHelpFormatter, str2list, strs2str, templatify_col_names
 
 
 def parse_args():
@@ -65,6 +73,22 @@ def parse_args():
         default=None,
     )
 
+    optional.add_argument(
+        "-a",
+        "--acronym-cols",
+        help="The subset of columns whose name is an acronym and which must be wrapped in a macro. By default, no column name is considered an acronym.",
+        metavar="COLS",
+        type=str,
+        default=None,
+    )
+
+    optional.add_argument(
+        "-r",
+        "--rotate",
+        help="Rotate the generated LaTeX table (landscape mode).",
+        action="store_true",
+    )
+
     args = parser.parse_args()
 
     return args
@@ -83,13 +107,22 @@ def main():
     df = df.rename(columns={args.cite_key_col: args.title_col})
     df[args.title_col] = CITE_MACRO + "{" + df[args.title_col] + "}"
 
+    if args.acronym_cols is not None:
+        df = templatify_col_names(
+            df, str2list(args.acronym_cols), ABBREVIATION_TEMPLATE
+        )
+
+    df = df.replace(UNICODE_2_MATH_SYMBOL, regex=True)
+
     output_path = Path(args.output_path)
 
     output_path.write_text(
         strs2str(
+            BEGIN_LANDSCAPE_MACRO if args.rotate else None,
             BEGIN_CENTER_MACRO,
             df.to_latex(index=False, escape=False).strip(),
             END_CENTER_MACRO,
+            END_LANDSCAPE_MACRO if args.rotate else None,
         )
     )
 

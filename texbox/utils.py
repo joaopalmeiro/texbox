@@ -37,4 +37,9 @@ def str2list(string, sep=","):
 
 
 def strs2str(*strings, sep="\n"):
-    return sep.join(strings)
+    return sep.join(filter(None.__ne__, strings))
+
+
+def templatify_col_names(df, cols, template, pattern="_PLACEHOLDER_"):
+    mapping = {col: template.replace(pattern, col) for col in cols}
+    return df.rename(columns=mapping)
