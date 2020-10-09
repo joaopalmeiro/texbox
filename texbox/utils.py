@@ -45,11 +45,17 @@ def identity(obj):
 
 
 def templatify_col_names(
-    df, cols, template, pattern="_PLACEHOLDER_", pre_col_transform=identity
+    df, cols, template, placeholder="_PLACEHOLDER_", pre_col_transform=identity
 ):
-    mapping = {col: template.replace(pattern, pre_col_transform(col)) for col in cols}
+    mapping = {
+        col: template.replace(placeholder, pre_col_transform(col)) for col in cols
+    }
     return df.rename(columns=mapping)
 
 
 def is_multi_word_string(string):
     return len(string.split()) > 1
+
+
+def templatify(template, value, placeholder="_PLACEHOLDER_"):
+    return template.replace(placeholder, value)

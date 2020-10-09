@@ -5,13 +5,12 @@ import pandas as pd
 
 from .constants import (
     ABBREVIATION_TEMPLATE,
-    BEGIN_CENTER_MACRO,
     BEGIN_LANDSCAPE_MACRO,
     BREAK_COLUMN_HEADING_TEMPLATE,
     CITE_MACRO,
-    END_CENTER_MACRO,
     END_LANDSCAPE_MACRO,
     LINE_BREAK,
+    TABLE_LABEL_TEMPLATE,
     UNICODE_2_MATH_SYMBOL,
 )
 from .utils import (
@@ -19,6 +18,7 @@ from .utils import (
     is_multi_word_string,
     str2list,
     strs2str,
+    templatify,
     templatify_col_names,
 )
 
@@ -104,6 +104,15 @@ def parse_args():
         action="store_true",
     )
 
+    optional.add_argument(
+        "-ca",
+        "--caption",
+        help="The caption for the generated LaTeX table.",
+        metavar="STR",
+        type=str,
+        default=None,
+    )
+
     args = parser.parse_args()
 
     return args
@@ -112,12 +121,15 @@ def parse_args():
 def main():
     args = parse_args()
 
+    input_path = Path(args.input_path)
+    output_path = Path(args.output_path)
+
     if args.cols is None:
-        df = pd.read_csv(args.input_path)
+        df = pd.read_csv(input_path)
         df = df.drop(columns=args.title_col)
     else:
         cols = str2list(args.cols) + [args.cite_key_col]
-        df = pd.read_csv(args.input_path, usecols=cols)
+        df = pd.read_csv(input_path, usecols=cols)
 
     df = df.rename(columns={args.cite_key_col: args.title_col})
     df[args.title_col] = CITE_MACRO + "{" + df[args.title_col] + "}"
@@ -138,14 +150,15 @@ def main():
 
     df = df.replace(UNICODE_2_MATH_SYMBOL, regex=True)
 
-    output_path = Path(args.output_path)
-
     output_path.write_text(
         strs2str(
             BEGIN_LANDSCAPE_MACRO if args.rotate else None,
-            BEGIN_CENTER_MACRO,
-            df.to_latex(index=False, escape=False).strip(),
-            END_CENTER_MACRO,
+            df.to_latex(
+                index=False,
+                escape=False,
+                label=templatify(TABLE_LABEL_TEMPLATE, input_path.stem),
+                caption=args.caption,
+            ).strip(),
             END_LANDSCAPE_MACRO if args.rotate else None,
         )
     )

@@ -1,21 +1,24 @@
 from enum import IntEnum
 
-ACRONYM_MACRO = "\\newacronym"
 COMMENT_CHAR = "%"
 EMPTY_LINE = [""]
 SUPPORTED_PUNCTUATION = "-.+"
+LINE_BREAK = "\\\\"
 
 ARGPARSE_DEFAULT = "(default: %(default)s)"
 
-CITE_MACRO = "\\cite"
 ABBREVIATION_TEMPLATE = "\\acrshort{_PLACEHOLDER_}"
 BREAK_COLUMN_HEADING_TEMPLATE = (
     "\\begin{tabular}[l]{@{}l@{}}_PLACEHOLDER_\\end{tabular}"
 )
-LINE_BREAK = "\\\\"
+TABLE_LABEL_TEMPLATE = "tab:_PLACEHOLDER_"
 
+# Note: https://github.com/pandas-dev/pandas/blob/v1.1.3/pandas/io/formats/latex.py#L299
 BEGIN_CENTER_MACRO = "\\begin{center}"
 END_CENTER_MACRO = "\\end{center}"
+
+CITE_MACRO = "\\cite"
+ACRONYM_MACRO = "\\newacronym"
 BEGIN_LANDSCAPE_MACRO = "\\begin{landscape}"
 END_LANDSCAPE_MACRO = "\\end{landscape}"
 
