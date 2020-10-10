@@ -19,7 +19,7 @@ def get_version(root, rel_path):
 setup(
     name="texbox",
     version=get_version(HERE, "texbox/__init__.py"),
-    description="A Python CLI to organize and prettify specific .tex files.",
+    description="An opinionated Python CLI to create, organize, and prettify specific files of a LaTeX project.",
     long_description=README,
     long_description_content_type="text/markdown",
     author="João Palmeiro",
