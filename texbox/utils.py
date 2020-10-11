@@ -82,3 +82,12 @@ def dreplace(string, dict_):
 def rreplace(s, old, new, occurrence=1):
     li = s.rsplit(old, occurrence)
     return new.join(li)
+
+
+def templatify_cell(cell, template):
+    cell_elements = str2list(cell)
+    templated_cell_elements = [
+        templatify(template, cell_element.strip()) for cell_element in cell_elements
+    ]
+
+    return ", ".join(templated_cell_elements)

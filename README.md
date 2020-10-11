@@ -27,7 +27,8 @@ optional arguments:
 
 ```text
 usage: texbox_tables [-h] -i PATH -o PATH -ck COL -t COL [-c COLS] [-a COLS]
-                     [-r] [-b] [-ca STR] [-sb COLS] [-fl PATH]
+                     [-ac COLS] [-r] [-b] [-ca STR] [-sb COLS] [-fl PATH]
+                     [-pp STR]
 
 Generate a LaTeX table from a bibliography-based file.
 
@@ -41,18 +42,25 @@ required arguments:
 optional arguments:
   -c, --cols COLS       The subset of columns to maintain. By default, all
                         columns are kept except the title column.
-  -a, --acronym-cols COLS
+  -a, --acronym-col-names COLS
                         The subset of columns whose name is an acronym and
                         which must be wrapped in a macro. By default, no
                         column name is considered an acronym.
+  -ac, --acronym-cols COLS
+                        The subset of columns whose comma-separated values are
+                        acronyms and which must be wrapped in a macro. By
+                        default, no columns are considered to have acronyms.
   -r, --rotate          Rotate the generated LaTeX table (landscape mode).
-  -b, --break-column-headings
+  -b, --break-col-headings
                         Break the column headings of the generated LaTeX table
                         with more than one word.
   -ca, --caption STR    The caption for the generated LaTeX table.
   -sb, --sort-by COLS   The subset of columns to sort by.
   -fl, --footer-legend PATH
                         The path to the file with the footer legend entries.
+  -pp, --table-position-params STR
+                        The position parameters for the table environment. By
+                        default, no parameters are specified.
 ```
 
 ## Development quickstart
@@ -75,5 +83,5 @@ optional arguments:
 - Delete tag: `git push --delete origin tagname`.
 - `python -m texbox.cli_acronyms -h`.
 - [`pandas.DataFrame.to_latex`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_latex.html) documentation.
-- `texbox_tables -i literature_review_summary.csv -ck "Cite Key" -o table1.tex -t "Paper" -c "Year,OOTL,BC,MCC,Other Tasks,uFeatures,Multiple Models,Tracking of Changes,OOTB,Context,Target Group,Model,OSS" -a "OOTL,BC,MCC,uFeatures,OOTB,OSS" -r -b -ca "Summary of visual tools for Model Evaluation." -sb "Year" -fl literature_review_summary_footer.txt`.
-- `texbox_tables -i literature_review_summary.csv -ck "Cite Key" -o table1.tex -t "Paper" -c "Year,Granularity" -ca "Summary of granularities of visual tools for Model Evaluation." -sb "Year"`.
+- `texbox_tables -i literature_review_summary.csv -ck "Cite Key" -o table1.tex -t "Paper" -c "Year,OOTL,BC,MCC,Other Tasks,uFeatures,Multiple Models,Tracking of Changes,OOTB,Context,Target Group,Model,OSS" -a "OOTL,BC,MCC,uFeatures,OOTB,OSS" -r -b -ca "Summary of visual tools for Model Evaluation." -sb "Year" -fl literature_review_summary_footer.txt -ac "Target Group"`.
+- `texbox_tables -i literature_review_summary.csv -ck "Cite Key" -o table1.tex -t "Paper" -c "Year,Granularity" -ca "Summary of granularities of visual tools for Model Evaluation." -sb "Year" -pp h`.

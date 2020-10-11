@@ -1,5 +1,6 @@
 import argparse
 import secrets
+from functools import partial
 from pathlib import Path
 
 import pandas as pd
@@ -7,6 +8,8 @@ import pandas as pd
 from .constants import (
     ABBREVIATION_TEMPLATE,
     BEGIN_LANDSCAPE_MACRO,
+    BEGIN_TABLE_MACRO,
+    BEGIN_TABLE_PARAMS_MACRO,
     BREAK_COLUMN_HEADING_TEMPLATE,
     CITE_MACRO,
     CUSTOM_FOOTER_LEGEND_TEMPLATE,
@@ -26,6 +29,7 @@ from .utils import (
     str2list,
     strs2str,
     templatify,
+    templatify_cell,
     templatify_col_names,
 )
 
@@ -90,8 +94,17 @@ def parse_args():
 
     optional.add_argument(
         "-a",
-        "--acronym-cols",
+        "--acronym-col-names",
         help="The subset of columns whose name is an acronym and which must be wrapped in a macro. By default, no column name is considered an acronym.",
+        metavar="COLS",
+        type=str,
+        default=None,
+    )
+
+    optional.add_argument(
+        "-ac",
+        "--acronym-cols",
+        help="The subset of columns whose comma-separated values are acronyms and which must be wrapped in a macro. By default, no columns are considered to have acronyms.",
         metavar="COLS",
         type=str,
         default=None,
@@ -106,7 +119,7 @@ def parse_args():
 
     optional.add_argument(
         "-b",
-        "--break-column-headings",
+        "--break-col-headings",
         help="Break the column headings of the generated LaTeX table with more than one word.",
         action="store_true",
     )
@@ -139,6 +152,15 @@ def parse_args():
         dest="footer_path",
     )
 
+    optional.add_argument(
+        "-pp",
+        "--table-position-params",
+        help="The position parameters for the table environment. By default, no parameters are specified.",
+        metavar="STR",
+        type=str,
+        default="",
+    )
+
     args = parser.parse_args()
 
     return args
@@ -160,15 +182,21 @@ def main():
     if args.sort_by is not None:
         df = df.sort_values(by=str2list(args.sort_by))
 
+    if args.acronym_cols is not None:
+        acronym_cols = str2list(args.acronym_cols)
+        df[acronym_cols] = df[acronym_cols].applymap(
+            partial(templatify_cell, template=ABBREVIATION_TEMPLATE)
+        )
+
     df = df.rename(columns={args.cite_key_col: args.title_col})
     df[args.title_col] = CITE_MACRO + "{" + df[args.title_col] + "}"
 
-    if args.acronym_cols is not None:
+    if args.acronym_col_names is not None:
         df = templatify_col_names(
-            df, str2list(args.acronym_cols), ABBREVIATION_TEMPLATE
+            df, str2list(args.acronym_col_names), ABBREVIATION_TEMPLATE
         )
 
-    if args.break_column_headings:
+    if args.break_col_headings:
         cols = [col for col in df.columns if is_multi_word_string(col)]
         df = templatify_col_names(
             df,
@@ -185,6 +213,11 @@ def main():
         label=templatify(TABLE_LABEL_TEMPLATE, input_path.stem + secrets.token_hex(2)),
         caption=args.caption,
     ).rstrip()
+
+    latex_table = latex_table.replace(
+        BEGIN_TABLE_MACRO,
+        templatify(BEGIN_TABLE_PARAMS_MACRO, args.table_position_params),
+    )
 
     if args.footer_path is not None:
         footer_legend_path = Path(args.footer_path)

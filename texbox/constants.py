@@ -12,6 +12,8 @@ BREAK_COLUMN_HEADING_TEMPLATE = (
 )
 TABLE_LABEL_TEMPLATE = "tab:_PLACEHOLDER_"
 CUSTOM_FOOTER_LEGEND_TEMPLATE = "\\caption*{\\footnotesize{_PLACEHOLDER_}}"
+BEGIN_TABLE_MACRO = "\\begin{table}"
+BEGIN_TABLE_PARAMS_MACRO = "\\begin{table}[_PLACEHOLDER_]"
 
 # Note: https://github.com/pandas-dev/pandas/blob/v1.1.3/pandas/io/formats/latex.py#L299
 BEGIN_CENTER_MACRO = "\\begin{center}"
