@@ -83,5 +83,5 @@ optional arguments:
 - Delete tag: `git push --delete origin tagname`.
 - `python -m texbox.cli_acronyms -h`.
 - [`pandas.DataFrame.to_latex`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_latex.html) documentation.
-- `texbox_tables -i literature_review_summary.csv -ck "Cite Key" -o table1.tex -t "Paper" -c "Year,OOTL,BC,MCC,Other Tasks,uFeatures,Multiple Models,Tracking of Changes,OOTB,Context,Target Group,Model,OSS" -a "OOTL,BC,MCC,uFeatures,OOTB,OSS" -r -b -ca "Summary of visual tools for Model Evaluation." -sb "Year" -fl literature_review_summary_footer.txt -ac "Target Group"`.
-- `texbox_tables -i literature_review_summary.csv -ck "Cite Key" -o table1.tex -t "Paper" -c "Year,Granularity" -ca "Summary of granularities of visual tools for Model Evaluation." -sb "Year" -pp h`.
+- `texbox_tables -i literature_review_summary.csv -ck "Cite Key" -o table1.tex -t "Paper" -c "Year,OOTL,BC,MCC,Other Tasks,uFeatures,Multiple Models,Tracking of Changes,OOTB,Context,Target Group,Model,OSS" -a "OOTL,BC,MCC,uFeatures,OOTB,OSS" -r -b -ca "Summary of visual tools for \gls{ML} Model Evaluation." -sb "Year" -fl literature_review_summary_footer.txt -ac "Target Group"`.
+- `texbox_tables -i literature_review_summary.csv -ck "Cite Key" -o table1.tex -t "Paper" -c "Year,Granularity" -ca "Summary of granularities of visual tools for \gls{ML} Model Evaluation." -sb "Year" -pp h`.
