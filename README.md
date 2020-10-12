@@ -76,12 +76,17 @@ optional arguments:
 
 ## Notes
 
-- `pipenv install --python 3.6 --dev`.
-- `pipenv install -e .`.
-- `pipenv install pyparsing`.
-- `pipenv graph`.
-- Delete tag: `git push --delete origin tagname`.
-- `python -m texbox.cli_acronyms -h`.
-- [`pandas.DataFrame.to_latex`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_latex.html) documentation.
-- `texbox_tables -i literature_review_summary.csv -ck "Cite Key" -o table1.tex -t "Paper" -c "Year,OOTL,BC,MCC,Other Tasks,uFeatures,Multiple Models,Tracking of Changes,OOTB,Context,Target Group,Model,OSS" -a "OOTL,BC,MCC,uFeatures,OOTB,OSS" -r -b -ca "Summary of visual tools for \gls{ML} Model Evaluation." -sb "Year" -fl literature_review_summary_footer.txt -ac "Target Group"`.
-- `texbox_tables -i literature_review_summary.csv -ck "Cite Key" -o table1.tex -t "Paper" -c "Year,Granularity" -ca "Summary of granularities of visual tools for \gls{ML} Model Evaluation." -sb "Year" -pp h`.
+- Pipenv:
+  - `pipenv install --python 3.6 --dev`.
+  - `pipenv install -e .`.
+  - `pipenv install pyparsing`.
+  - `pipenv graph`.
+- Git:
+  - Delete tag: `git push --delete origin tagname`.
+- pandas:
+  - [`pandas.DataFrame.to_latex`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_latex.html) documentation.
+- Commands:
+  - `python -m texbox.cli_acronyms -h`.
+  - `texbox_tables -i literature_review_summary.csv -ck "Cite Key" -o table1.tex -t "Paper" -c "Year,OOTL,BC,MCC,Other Tasks,uFeatures,Multiple Models,Tracking of Changes,OOTB,Context,Target Group,Model,OSS" -a "OOTL,BC,MCC,uFeatures,OOTB,OSS" -r -b -ca "Summary of visual tools for \gls{ML} Model Evaluation." -sb "Year" -fl literature_review_summary_footer.txt -ac "Target Group"`.
+  - `texbox_tables -i literature_review_summary.csv -ck "Cite Key" -o table1.tex -t "Paper" -c "Year,Granularity" -ca "Summary of granularities of visual tools for \gls{ML} Model Evaluation." -sb "Year" -pp h`.
+  - `texbox_pdf -i doc.pdf -p 25-28`.
